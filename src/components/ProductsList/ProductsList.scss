@@ -1,0 +1,12 @@
+.Products {
+  background-color: green;
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 960px;
+  gap: 10px;
+  border-radius: 30px;
+  padding: 10px 0;
+}
