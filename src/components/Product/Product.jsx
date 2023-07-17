@@ -1,8 +1,21 @@
 import React from 'react';
 import './Product.scss';
 
-export const Product = ({ product }) => {
-  const { name, price, count, color } = product;
+export const Product = ({ product, onDecrement, onIncrement, onDelete }) => {
+  const { name, price, count, color, id } = product;
+
+  const handleClickIncr = () => {
+    onIncrement(id);
+  }
+  const handleClickDecr = () => {
+    onDecrement(id);
+  }
+  const handleClickDelete = () => {
+    onDelete(id);
+  }
+  const calculateAmount = () => {
+    return price * count;
+  }
 
   return (
     <div className='Product'>
@@ -17,9 +30,7 @@ export const Product = ({ product }) => {
             {/* TODO: call onDecrement */}
             <button
               className="decrement"
-            // onClick={() => {
-            //   count = count - 1;
-            // }}
+              onClick={handleClickDecr}
             >
               -
             </button>
@@ -28,9 +39,7 @@ export const Product = ({ product }) => {
             {/* TODO: call onIncrement */}
             <button
               className="increment"
-            // onClick={() => {
-            //   count = count + 1;
-            // }}
+              onClick={handleClickIncr}
             >
               +
             </button>
@@ -43,12 +52,14 @@ export const Product = ({ product }) => {
       <div className="amount-wrapper">
         <span className="label">amount:</span>
         {/* TODO: calculate and show amount */}
-        <span className="amount"></span>
+        <span className="amount">{calculateAmount()}</span>
       </div>
 
       {/* TODO: call onDeleteItem */}
       <button
-        className="delete-item">
+        className="delete-item"
+        onClick={handleClickDelete}
+      >
         x
       </button>
     </div>
