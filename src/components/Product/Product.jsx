@@ -27,16 +27,13 @@ export const Product = ({ product, onDecrement, onIncrement, onDelete }) => {
         <dl className="counter-wrapper">
           <dt>count</dt>
           <dd>
-            {/* TODO: call onDecrement */}
             <button
               className="decrement"
               onClick={handleClickDecr}
             >
               -
             </button>
-            {/* TODO: show count */}
             <span className="count">{count}</span>
-            {/* TODO: call onIncrement */}
             <button
               className="increment"
               onClick={handleClickIncr}
@@ -51,11 +48,9 @@ export const Product = ({ product, onDecrement, onIncrement, onDelete }) => {
 
       <div className="amount-wrapper">
         <span className="label">amount:</span>
-        {/* TODO: calculate and show amount */}
         <span className="amount">{calculateAmount()}</span>
       </div>
 
-      {/* TODO: call onDeleteItem */}
       <button
         className="delete-item"
         onClick={handleClickDelete}

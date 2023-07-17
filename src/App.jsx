@@ -44,34 +44,35 @@ export const App = () => {
   const [value, setValue] = useState(5);
   const [sortField, setSortField] = useState('');
   const [query, setQuery] = useState('');
+  const [products, setProducts] = useState(initialState);
 
-  const visibleGoods = getPreparedGoods(
-    initialState,
-    { sortField, query }
-  );
-  const [products, setProducts] = useState(visibleGoods);
   const hendleIncrement = (itemId) => {
-    setProducts((prevItems) => prevItems.map(
-      (item) => item.id === itemId ? { ...item, count: item.count + 1 } : item)
+    setProducts((prevItems) =>
+      prevItems.map((item) =>
+        item.id === itemId ? { ...item, count: item.count + 1 } : item
+      )
     );
   };
 
   const hendleDecrenemt = (itemId) => {
-    setProducts((prevItems) => prevItems.map(
-      (item) => item.id === itemId && item.count > 0 ? { ...item, count: item.count - 1 } : item)
+    setProducts((prevItems) =>
+      prevItems.map((item) =>
+        item.id === itemId && item.count > 0
+          ? { ...item, count: item.count - 1 }
+          : item
+      )
     );
    };
 
   const handleClickDelete = (itemId) => {
-    setProducts((prevItems) => prevItems.filter(
-      (item) => item.id !== itemId
-    ))
+    setProducts((prevItems) =>
+      prevItems.filter((item) => item.id !== itemId)
+    );
   };
 
+  let visibleGoods = getPreparedGoods(products, { sortField, query });
+  
   //useEffect(() => {
-    // Fetch data and set state
-    // You can use the fetch API or any other library to make API calls
-    // Example:
     // fetch("https://640f0073cde47f68db3e614c.mockapi.io/api/v1/cart")
     //   .then((response) => response.json())
     //   .then((data) => setItems(data))
@@ -85,13 +86,13 @@ export const App = () => {
       <Header />
 
       <ProductsList
-        products={products}
+        products={visibleGoods}
         onDecrement={hendleDecrenemt}
         onIncrement={hendleIncrement}
         onDelete={handleClickDelete}
       />
 
-      <TotalAmount products={products} />
+      <TotalAmount products={visibleGoods} />
      
       <button
         className='add'
