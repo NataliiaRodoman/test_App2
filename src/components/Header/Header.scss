@@ -1,0 +1,28 @@
+header {
+  background: burlywood;
+  width: 100%;
+  text-align: center;
+  font-size: 22px;
+  font-weight: 600;
+}
+
+.Header__nav {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 40px;
+  list-style: none;
+  margin: 15px;
+}
+
+.Header__item {
+  border: 5px rgb(197, 91, 5) solid;
+  padding: 10px;
+  border-radius: 30px;
+
+  &:hover {
+    background-color: rgb(201, 213, 26);
+    scale: 1.2;
+    transition: all 0.5s;
+  }
+}
