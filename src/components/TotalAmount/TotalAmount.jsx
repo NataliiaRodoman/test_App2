@@ -1,7 +1,13 @@
-export const TotalAmount = ({ items = [] }) => {
-  // TODO: calculate ans show the total amount
+import React from 'react';
 
-  return <h3>Total amount:</h3>;
+export const TotalAmount = ({ products = [] }) => {
+  const calculateTotalAmount = () => {
+    return products.reduce((total, item) => {
+      return total + item.price * item.count;
+    }, 0);
+  }
+
+  return <h3>Total amount: {calculateTotalAmount()}</h3>;
 };
 
 export default TotalAmount;

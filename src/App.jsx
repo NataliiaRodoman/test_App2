@@ -6,11 +6,13 @@ import { ProductsList } from './components/ProductsList/ProductsList';
 import { TotalAmount } from './components/TotalAmount/TotalAmount';
 import { Footer } from './components/Footer/Footer';
 
+// use the following CRUD API https://640f0073cde47f68db3e614c.mockapi.io/api/v1/cart
+
 const initialState = [
-  { id: 4, price: 100, name: "peperoni pizza", count: 0, color: '#f00' },
-  { id: 1, price: 150, name: "chis pizza", count: 0, color: '#00f' },
-  { id: 3, price: 180, name: "new pizza", count: 0, color: '#080' },
-  { id: 2, price: 190, name: "tomatos pizza", count: 0, color: '#08f' }
+  { id: 4, price: 100, name: "peperoni pizza", count: 10, color: '#f00' },
+  { id: 1, price: 150, name: "chis pizza", count: 120, color: '#00f' },
+  { id: 3, price: 180, name: "new pizza", count: 20, color: '#080' },
+  { id: 2, price: 190, name: "tomatos pizza", count: 30, color: '#08f' }
 ];
 
 function getPreparedGoods(goods, { sortField, query }) {
@@ -39,7 +41,6 @@ function getPreparedGoods(goods, { sortField, query }) {
 }
 
 export const App = () => {
-  // const [products, setProducts] = useState(initialState);
   const [value, setValue] = useState(5);
   const [sortField, setSortField] = useState('');
   const [query, setQuery] = useState('');
@@ -48,12 +49,34 @@ export const App = () => {
     initialState,
     { sortField, query }
   );
+  const [products, setProducts] = useState(visibleGoods);
+  const hendleIncrement = (itemId) => {
+    setProducts((prevItems) => prevItems.map(
+      (item) => item.id === itemId ? { ...item, count: item.count + 1 } : item)
+    );
+  };
 
-  const onIncrement = () => { };
+  const hendleDecrenemt = (itemId) => {
+    setProducts((prevItems) => prevItems.map(
+      (item) => item.id === itemId && item.count > 0 ? { ...item, count: item.count - 1 } : item)
+    );
+   };
 
-  const onDecrement = () => { };
+  const handleClickDelete = (itemId) => {
+    setProducts((prevItems) => prevItems.filter(
+      (item) => item.id !== itemId
+    ))
+  };
 
-  const onDelete = () => { };
+  //useEffect(() => {
+    // Fetch data and set state
+    // You can use the fetch API or any other library to make API calls
+    // Example:
+    // fetch("https://640f0073cde47f68db3e614c.mockapi.io/api/v1/cart")
+    //   .then((response) => response.json())
+    //   .then((data) => setItems(data))
+    //   .catch((error) => console.error(error));
+  //}, []);
 
   return (
     <div className='App'>
@@ -61,9 +84,14 @@ export const App = () => {
 
       <Header />
 
-      <ProductsList products={visibleGoods} />
+      <ProductsList
+        products={products}
+        onDecrement={hendleDecrenemt}
+        onIncrement={hendleIncrement}
+        onDelete={handleClickDelete}
+      />
 
-      <TotalAmount products={visibleGoods} />
+      <TotalAmount products={products} />
      
       <button
         className='add'
