@@ -1,7 +1,7 @@
 import React from 'react';
 import './Product.scss';
 
-export const Product = ({ product, onDecrement, onIncrement, onDelete }) => {
+export const Product = ({ product, onDecrement, onIncrement, onDelete, onAdded }) => {
   const { name, price, count, color, id } = product;
 
   const handleClickIncr = () => {
@@ -15,6 +15,10 @@ export const Product = ({ product, onDecrement, onIncrement, onDelete }) => {
   }
   const calculateAmount = () => {
     return price * count;
+  }
+  const handleClickOrder = () => {
+    const orderProd = count;
+    onAdded(id, orderProd);
   }
 
   return (
@@ -39,6 +43,13 @@ export const Product = ({ product, onDecrement, onIncrement, onDelete }) => {
               onClick={handleClickIncr}
             >
               +
+            </button>
+           
+            <button
+              className="add"
+              onClick={handleClickOrder}
+            >
+              Order
             </button>
           </dd>
         </dl>

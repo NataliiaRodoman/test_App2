@@ -9,10 +9,10 @@ import { Footer } from './components/Footer/Footer';
 // use the following CRUD API https://640f0073cde47f68db3e614c.mockapi.io/api/v1/cart
 
 const initialState = [
-  { id: 4, price: 100, name: "peperoni pizza", count: 10, color: '#f00' },
-  { id: 1, price: 150, name: "chis pizza", count: 120, color: '#00f' },
-  { id: 3, price: 180, name: "new pizza", count: 20, color: '#080' },
-  { id: 2, price: 190, name: "tomatos pizza", count: 30, color: '#08f' }
+  { id: 4, price: 100, name: "peperoni pizza", count: 1, color: '#f00' },
+  { id: 1, price: 150, name: "chis pizza", count: 1, color: '#00f' },
+  { id: 3, price: 180, name: "new pizza", count: 1, color: '#080' },
+  { id: 2, price: 190, name: "tomatos pizza", count: 1, color: '#08f' }
 ];
 
 function getPreparedGoods(goods, { sortField, query }) {
@@ -45,6 +45,8 @@ export const App = () => {
   const [sortField, setSortField] = useState('');
   const [query, setQuery] = useState('');
   const [products, setProducts] = useState(initialState);
+  const [order, setOrder] = useState(0);
+  const [arrOrder, setArrOrder] = useState([]);
 
   const hendleIncrement = (itemId) => {
     setProducts((prevItems) =>
@@ -70,6 +72,13 @@ export const App = () => {
     );
   };
 
+  const onAdded = (id, orderProd) => {
+    setOrder(order + orderProd);
+    if (!arrOrder.includes(id)) {
+      setArrOrder(arrOrder.concat(id));
+    } 
+  }
+  
   let visibleGoods = getPreparedGoods(products, { sortField, query });
   
   //useEffect(() => {
@@ -83,13 +92,14 @@ export const App = () => {
     <div className='App'>
       <h1>May shop</h1>
 
-      <Header />
+      <Header order={order} visibleGoods={visibleGoods} arrOrder={arrOrder} />
 
       <ProductsList
         products={visibleGoods}
         onDecrement={hendleDecrenemt}
         onIncrement={hendleIncrement}
         onDelete={handleClickDelete}
+        onAdded={onAdded}
       />
 
       <TotalAmount products={visibleGoods} />

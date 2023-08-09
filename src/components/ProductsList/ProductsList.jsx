@@ -2,7 +2,7 @@ import React from 'react';
 import { Product } from '../Product/Product';
 import './ProductsList.scss';
 
-export const ProductsList = ({ products = [], onDecrement, onIncrement, onDelete }) => {
+export const ProductsList = ({ products = [], onDecrement, onIncrement, onDelete, onAdded }) => {
   return(
     <ul className="Products">
         {products.map((product) => (
@@ -12,6 +12,7 @@ export const ProductsList = ({ products = [], onDecrement, onIncrement, onDelete
               onDecrement={onDecrement}
               onIncrement={onIncrement}
               onDelete={onDelete}
+              onAdded={onAdded}
             />
           </li>
         ))}
