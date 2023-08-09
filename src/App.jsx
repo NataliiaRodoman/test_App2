@@ -74,9 +74,18 @@ export const App = () => {
 
   const onAdded = (id, orderProd) => {
     setOrder(order + orderProd);
-    if (!arrOrder.includes(id)) {
-      setArrOrder(arrOrder.concat(id));
-    } 
+
+    const existingOrder = arrOrder.find(order => order.id === id);
+    
+    if (existingOrder) {
+      const updatedArrOrder = arrOrder.map(
+        order => order.id === id ? { ...order, count: order.count + orderProd } : order
+      );
+      setArrOrder(updatedArrOrder);
+    } else {
+      const productToAdd = products.find(product => product.id === id);
+      setArrOrder([...arrOrder, { id, count: orderProd, ...productToAdd }]);
+    }
   }
   
   let visibleGoods = getPreparedGoods(products, { sortField, query });
