@@ -6,11 +6,13 @@ import './Header.scss';
 export const Header = ({ order, visibleGoods, arrOrder }) => {
   const [isModalVisible, setIsModalVisible] = useState(false);
   const [selectedItems, setSelectedItems] = useState([]);
+  console.log(selectedItems);
+  console.log(visibleGoods);
 
   useEffect(() => {
     const updatedSelectedItems = arrOrder.map((element) => {
-      const selectedItem = visibleGoods.find(item => item.id === element);
-      return selectedItem ? selectedItem : null;
+      const selectedItem = visibleGoods.find(item => item.id === element.id);
+      return selectedItem ? { ...selectedItem, count: element.count } : null;
     }).filter(item => item !== null);
 
     setSelectedItems(updatedSelectedItems);
